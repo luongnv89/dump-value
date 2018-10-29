@@ -48,43 +48,40 @@ describe('Test function getRandomName', () => {
 
   test('getRandomName for name of male and with default regions input', () => {
     for (let i = 0; i < nbTests; i++) {
-      expect(getRandomName(['male'])).not.toBeUndefined();
+      expect(getRandomName([],'male')).not.toBeUndefined();
     }
   });
 
 
   test('getRandomName for name of female and with default regions input', () => {
     for (let i = 0; i < nbTests; i++) {
-      expect(getRandomName(['female'])).not.toBeUndefined();
+      expect(getRandomName([],'female')).not.toBeUndefined();
     }
   });
 
   test('getRandomName for name of female and with some specific regions input', () => {
     for (let i = 0; i < nbTests; i++) {
-      expect(getRandomName(['female'], ['europe', 'asia'])).not.toBeUndefined();
+      expect(getRandomName(['europe', 'asia'], 'female')).not.toBeUndefined();
     }
   });
 
   test('getRandomName for name of male and with some specific regions input', () => {
     for (let i = 0; i < nbTests; i++) {
-      expect(getRandomName(['male'], ['europe', 'africa'])).not.toBeUndefined();
+      expect(getRandomName(['europe', 'africa'], 'male')).not.toBeUndefined();
     }
   });
 
   test('getRandomName for name of a specific regions', () => {
     for (let i = 0; i < nbTests; i++) {
-      expect(getRandomName(['male', 'female'], ['europe'])).not.toBeUndefined();
+      expect(getRandomName('europe')).not.toBeUndefined();
     }
   });
 
   test('getRandomName should not return undefined', () => {
-    for (let i = 0; i < nbTests; i++) {
-      expect(getRandomName(['male', 'female'], ['france','oceania'])).not.toBeUndefined();
-    }
+      expect(getRandomName(['france','oceania'])).toBeUndefined();
   });
+
   test('getRandomName should return undefined', () => {
-    for (let i = 0; i < nbTests; i++) {
-      expect(getRandomName(['male', 'female'], ['france'])).toBeUndefined();
-    }
+      expect(getRandomName('france')).toBeUndefined();
   });
 });

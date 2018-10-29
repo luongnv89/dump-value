@@ -29,30 +29,47 @@ const allNames = {
     'asia': asiaFemale,
     'oceania': oceaniaFemale,
   }
-}
+};
 
+
+const listGenders = ['male', 'female'];
+const listRegions = ['africa', 'america', 'asia', 'europe', 'oceania'];
 /**
  * Get random name by gender and region
- * @param {Array} genders list of genders
- * @param {Array} regions List of regions
+ * @param {String} xgender gender of name
+ * @param {String or Array of String} xregions The region
  */
-const getRandomName = (xgenders=['male','female'], xregions=['africa','america','asia','europe','oceania']) => {
+const getRandomName = (xregions=['africa','america','asia','europe','oceania'], xgender = 'all') => {
   let totalNames = [];
-  let genders = xgenders;
-  if (genders.length == 0) {
-    genders = ['male','female'];
+  let genders = [];
+  if (xgender && xgender !== 'all') {
+    if (listGenders.indexOf(xgender) === -1 ) {
+      console.error('[ERROR] invalid gender: ', xgender);
+      return undefined;
+    }
+    genders = [xgender];
+  } else {
+    genders = listGenders;
   }
 
-  let regions = xregions;
-  if (regions.length == 0) {
-    regions = ['africa','america','asia','europe','oceania'];
+  let regions = [];
+  if (typeof xregions === 'string') {
+    regions = [xregions];
+  } else {
+    regions = xregions.length === 0 ? listRegions : xregions;
+  }
+
+  for (let index = 0; index < regions.length; index++) {
+    const reg = regions[index];
+    if (listRegions.indexOf(reg) === -1) {
+      console.error('[ERROR] invalid region: ', reg);
+      return undefined;
+    }
   }
 
   genders.forEach(gen => {
     regions.forEach(reg => {
-      if (allNames[gen][reg]){
-        totalNames = totalNames.concat(allNames[gen][reg]);
-      }
+      totalNames = totalNames.concat(allNames[gen][reg]);
     });
   });
   const randomIndex = Math.floor(Math.random() * Math.floor(totalNames.length - 1));
